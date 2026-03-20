@@ -552,20 +552,32 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .game-banner {
-      height: 180px;
-      border-radius: 18px;
-      background: linear-gradient(135deg, rgba(112,165,255,0.2), rgba(183,140,255,0.18), rgba(94,240,215,0.12));
-      border: 1px solid rgba(255,255,255,0.08);
-      margin-bottom: 16px;
-      display: grid;
-      place-items: center;
-      color: rgba(255,255,255,0.85);
-      font-size: 14px;
-      text-align: center;
-      padding: 16px;
-    }
+   .game-banner {
+  height: 180px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, rgba(112,165,255,0.2), rgba(183,140,255,0.18), rgba(94,240,215,0.12));
+}
 
+.game-banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.game-banner-placeholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+  text-align: center;
+  padding: 16px;
+}
     .game-meta {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -917,7 +929,7 @@
           universeId: 96689353832855,
           fallbackVisits: "601.7K+",
           gameUrl: "https://www.roblox.com/games/96689353832855/Most-Satisfying-Keyboard-Tower",
-          bannerText: "Add a screenshot later or keep this gradient card design"
+       bannerText: "assets/games/Most Satisfying Keyboard Tower",
         },
         {
           title: "+1 Speed Keyboard Escape",
@@ -937,7 +949,7 @@
           universeId: 120740094197563,
           fallbackVisits: "74.5K+",
           gameUrl: "https://www.roblox.com/games/120740094197563/1-Speed-Keyboard-Escape#!/about",
-          bannerText: "You can replace this with a real image block if you want"
+          bannerText: "assets/games/+1 Speed Keyboard Escape",
         }
       ]
     };
@@ -1045,35 +1057,40 @@
       return String(value);
     }
 
-    function createGameCard(game) {
-      const article = document.createElement("article");
-      article.className = "game-card reveal";
-      article.innerHTML = `
-        <div class="game-banner">${game.bannerText || "Project banner or screenshot"}</div>
-        <div class="game-top">
-          <div>
-            <h3>${game.title}</h3>
-            <p>${game.description}</p>
-          </div>
-          <div class="tag">${game.role}</div>
-        </div>
-        <div class="game-meta">
-          <div class="meta-box">
-            <div class="meta-label">Genre</div>
-            <div class="meta-value">${game.genre}</div>
-          </div>
-          <div class="meta-box">
-            <div class="meta-label">Visits</div>
-            <div class="meta-value" data-visits="${game.universeId || ""}">${game.fallbackVisits || "Add value"}</div>
-          </div>
-        
-        </div>
-        <div class="game-actions">
-          <a class="btn primary" href="${game.gameUrl}" target="_blank" rel="noreferrer">Open Game</a>
-        </div>
-      `;
-      return article;
-    }
+   function createGameCard(game) {
+  const article = document.createElement("article");
+  article.className = "game-card reveal";
+  article.innerHTML = `
+    <div class="game-banner">
+      ${
+        game.bannerImage
+          ? `<img src="${game.bannerImage}" alt="${game.title} screenshot" class="game-banner-image">`
+          : `<div class="game-banner-placeholder">${game.bannerText || "Project banner or screenshot"}</div>`
+      }
+    </div>
+    <div class="game-top">
+      <div>
+        <h3>${game.title}</h3>
+        <p>${game.description}</p>
+      </div>
+      <div class="tag">${game.role}</div>
+    </div>
+    <div class="game-meta">
+      <div class="meta-box">
+        <div class="meta-label">Genre</div>
+        <div class="meta-value">${game.genre}</div>
+      </div>
+      <div class="meta-box">
+        <div class="meta-label">Visits</div>
+        <div class="meta-value" data-visits="${game.universeId || ""}">${game.fallbackVisits || "Add value"}</div>
+      </div>
+    </div>
+    <div class="game-actions">
+      <a class="btn primary" href="${game.gameUrl}" target="_blank" rel="noreferrer">Open Game</a>
+    </div>
+  `;
+  return article;
+}
 
     async function renderGames() {
       gamesGrid.innerHTML = "";
