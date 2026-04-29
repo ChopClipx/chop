@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg: #07111f;
@@ -91,8 +92,13 @@
     }
 
     @keyframes floatOrb {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-20px) scale(1.05); }
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+
+      50% {
+        transform: translateY(-20px) scale(1.05);
+      }
     }
 
     .topbar {
@@ -101,7 +107,7 @@
       z-index: 30;
       backdrop-filter: blur(18px);
       background: rgba(7, 17, 31, 0.55);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .topbar-inner {
@@ -151,7 +157,7 @@
     .nav a:hover,
     .nav a.active {
       color: var(--text);
-      background: rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.08);
     }
 
     .container {
@@ -168,15 +174,15 @@
       padding: 46px 0 80px;
     }
 
- .hero-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.9fr;
-  gap: 28px;
-  align-items: start;
-}
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.9fr;
+      gap: 28px;
+      align-items: start;
+    }
 
     .panel {
-      background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.05));
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05));
       border: 1px solid var(--border);
       border-radius: var(--radius-xl);
       box-shadow: var(--shadow);
@@ -194,7 +200,7 @@
       inset: auto -100px -100px auto;
       width: 240px;
       height: 240px;
-      background: radial-gradient(circle, rgba(94,240,215,0.22), transparent 65%);
+      background: radial-gradient(circle, rgba(94, 240, 215, 0.22), transparent 65%);
       filter: blur(10px);
     }
 
@@ -204,8 +210,8 @@
       gap: 8px;
       padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       color: var(--muted);
       font-size: 14px;
       margin-bottom: 18px;
@@ -252,21 +258,22 @@
       padding: 14px 20px;
       border-radius: 16px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       color: var(--text);
       transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
       font-weight: 600;
+      cursor: pointer;
     }
 
     .btn:hover {
       transform: translateY(-2px);
-      background: rgba(255,255,255,0.1);
-      border-color: rgba(255,255,255,0.22);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.22);
     }
 
     .btn.primary {
-      background: linear-gradient(135deg, rgba(112,165,255,0.25), rgba(94,240,215,0.18));
-      border-color: rgba(112,165,255,0.28);
+      background: linear-gradient(135deg, rgba(112, 165, 255, 0.25), rgba(94, 240, 215, 0.18));
+      border-color: rgba(112, 165, 255, 0.28);
     }
 
     .hero-side {
@@ -339,7 +346,7 @@
     .mini-pill {
       padding: 10px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.07);
+      background: rgba(255, 255, 255, 0.07);
       color: var(--accent-2);
       white-space: nowrap;
       font-size: 13px;
@@ -385,7 +392,7 @@
       padding: 10px 14px;
       border-radius: 999px;
       border: 1px solid var(--border);
-      background: rgba(255,255,255,0.05);
+      background: rgba(255, 255, 255, 0.05);
       color: var(--muted);
       cursor: pointer;
       transition: 0.2s ease;
@@ -396,7 +403,7 @@
     .filter-btn:hover,
     .chip:hover {
       color: var(--text);
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.1);
     }
 
     .search {
@@ -406,7 +413,7 @@
       gap: 10px;
       padding: 12px 14px;
       border-radius: 16px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       border: 1px solid var(--border);
     }
 
@@ -449,7 +456,7 @@
       content: "";
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg, rgba(112,165,255,0.12), transparent 40%, rgba(94,240,215,0.08));
+      background: linear-gradient(135deg, rgba(112, 165, 255, 0.12), transparent 40%, rgba(94, 240, 215, 0.08));
       opacity: 0;
       transition: opacity 0.22s ease;
       pointer-events: none;
@@ -469,6 +476,8 @@
       gap: 14px;
       align-items: start;
       margin-bottom: 14px;
+      position: relative;
+      z-index: 1;
     }
 
     .skill-icon {
@@ -478,8 +487,8 @@
       display: grid;
       place-items: center;
       font-size: 22px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       flex-shrink: 0;
     }
 
@@ -489,10 +498,10 @@
       gap: 8px;
       padding: 8px 12px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.06);
+      background: rgba(255, 255, 255, 0.06);
       color: var(--muted);
       font-size: 13px;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       white-space: nowrap;
     }
 
@@ -502,6 +511,8 @@
     .contact-card h3 {
       margin: 0 0 10px;
       font-size: 1.15rem;
+      position: relative;
+      z-index: 1;
     }
 
     .skill-card p,
@@ -511,6 +522,8 @@
       margin: 0;
       color: var(--muted);
       line-height: 1.7;
+      position: relative;
+      z-index: 1;
     }
 
     .pill-row {
@@ -518,13 +531,15 @@
       gap: 8px;
       flex-wrap: wrap;
       margin-top: 16px;
+      position: relative;
+      z-index: 1;
     }
 
     .pill {
       padding: 8px 10px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       color: #d5def5;
       font-size: 13px;
     }
@@ -537,9 +552,11 @@
       margin-top: 16px;
       border-radius: 18px;
       overflow: hidden;
-      border: 1px solid rgba(255,255,255,0.08);
+      border: 1px solid rgba(255, 255, 255, 0.08);
       aspect-ratio: 16 / 9;
-      background: rgba(255,255,255,0.03);
+      background: rgba(255, 255, 255, 0.03);
+      position: relative;
+      z-index: 1;
     }
 
     .video-frame iframe {
@@ -552,44 +569,49 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-   .game-banner {
-  height: 180px;
-  border-radius: 18px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.08);
-  margin-bottom: 16px;
-  background: linear-gradient(135deg, rgba(112,165,255,0.2), rgba(183,140,255,0.18), rgba(94,240,215,0.12));
-}
+    .game-banner {
+      height: 180px;
+      border-radius: 18px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, rgba(112, 165, 255, 0.2), rgba(183, 140, 255, 0.18), rgba(94, 240, 215, 0.12));
+      position: relative;
+      z-index: 1;
+    }
 
-.game-banner-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
+    .game-banner-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
 
-.game-banner-placeholder {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  place-items: center;
-  color: rgba(255,255,255,0.85);
-  font-size: 14px;
-  text-align: center;
-  padding: 16px;
-}
+    .game-banner-placeholder {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 14px;
+      text-align: center;
+      padding: 16px;
+    }
+
     .game-meta {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
       margin-top: 18px;
+      position: relative;
+      z-index: 1;
     }
 
     .meta-box {
       padding: 14px;
       border-radius: 16px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .meta-label {
@@ -610,6 +632,8 @@
       gap: 10px;
       flex-wrap: wrap;
       margin-top: 18px;
+      position: relative;
+      z-index: 1;
     }
 
     .contact-wrap {
@@ -622,6 +646,8 @@
       display: grid;
       gap: 12px;
       margin-top: 16px;
+      position: relative;
+      z-index: 1;
     }
 
     .contact-line {
@@ -631,8 +657,8 @@
       gap: 12px;
       padding: 14px 16px;
       border-radius: 16px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
 
     .contact-line span {
@@ -695,9 +721,15 @@
       .hero {
         min-height: auto;
       }
+
+      .nav a {
+        padding: 9px 11px;
+        font-size: 14px;
+      }
     }
   </style>
 </head>
+
 <body>
   <div class="bg-orb orb-1"></div>
   <div class="bg-orb orb-2"></div>
@@ -717,6 +749,7 @@
         <a href="#skills">Skills</a>
         <a href="#videos">Videos</a>
         <a href="#games">Games</a>
+        <a href="#released-games">Games I Released</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -726,19 +759,31 @@
     <section class="hero" id="home">
       <div class="hero-grid">
         <div class="panel hero-main reveal">
-          <div class="eyebrow"><span class="dot"></span> Roblox developer </div>
+          <div class="eyebrow"><span class="dot"></span> Roblox developer</div>
+
           <h1>
             Hello! <span class="gradient-text">I am Chop</span> and this is my Portfolio.
           </h1>
+
           <p class="hero-copy">
-           Hey there! I’m a passionate Roblox developer with over 2 years of
-           experience in scripting and game development.
+            Hey there! I’m a passionate Roblox developer with over 2 years of
+            experience in scripting and game development.
           </p>
+
           <div class="hero-actions">
             <a class="btn primary" href="#games">See My Work</a>
+            <a class="btn" href="#released-games">Released Games</a>
             <a class="btn" href="#contact">Contact Me</a>
           </div>
         </div>
+
+        <div class="panel hero-side reveal">
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-label">Experience</div>
+              <div class="stat-value">2+ Years</div>
+            </div>
+
             <div class="stat-card">
               <div class="stat-label">Open For Work</div>
               <div class="stat-value">Yes</div>
@@ -746,9 +791,21 @@
           </div>
 
           <div class="hero-list">
-           
-           
-           
+            <div class="mini-card">
+              <div>
+                <strong>Scripting</strong>
+                <span>Systems, gameplay, UI, and economy logic</span>
+              </div>
+              <div class="mini-pill">Luau</div>
+            </div>
+
+            <div class="mini-card">
+              <div>
+                <strong>Released Game</strong>
+                <span>Maxi Scooter For Brainrots</span>
+              </div>
+              <div class="mini-pill">Roblox</div>
+            </div>
           </div>
         </div>
       </div>
@@ -759,15 +816,17 @@
         <div>
           <h2>What I can do in Roblox development</h2>
           <p>
-           
+            These are the Roblox development areas I can work on.
           </p>
         </div>
+
         <div class="toolbar">
           <button class="filter-btn active" data-filter="all">All</button>
           <button class="filter-btn" data-filter="backend">Backend</button>
           <button class="filter-btn" data-filter="gameplay">Gameplay</button>
           <button class="filter-btn" data-filter="ui">UI</button>
           <button class="filter-btn" data-filter="economy">Economy</button>
+
           <label class="search">
             <span>🔎</span>
             <input id="skillSearch" type="text" placeholder="Search skills..." />
@@ -796,7 +855,7 @@
         <div>
           <h2>Games I have worked on</h2>
           <p>
-           This are the games I have worked on..
+            These are games I have worked on.
           </p>
         </div>
       </div>
@@ -804,12 +863,25 @@
       <div class="grid games-grid" id="gamesGrid"></div>
     </section>
 
+    <section id="released-games">
+      <div class="section-head reveal">
+        <div>
+          <h2>Games I have released</h2>
+          <p>
+            These are games I have released publicly on Roblox.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid games-grid" id="releasedGamesGrid"></div>
+    </section>
+
     <section id="contact">
       <div class="section-head reveal">
         <div>
           <h2>Contact</h2>
           <p>
-          
+            Reach out if you want to work with me.
           </p>
         </div>
       </div>
@@ -818,27 +890,39 @@
         <div class="contact-card reveal">
           <h3>Let’s build something strong</h3>
           <p>
-          Message me here on discord, if I do not respond then I might be gone, but will be back.
+            Message me here on Discord. If I do not respond, I might be gone, but I will be back.
           </p>
 
           <div class="contact-list">
             <div class="contact-line">
               <div>
                 <strong>Discord</strong>
-                <span>Main contact </span>
+                <span>Main contact</span>
               </div>
+
               <a class="chip" href="https://discord.com/users/your-discord-id" target="_blank" rel="noreferrer">@chop8888</a>
             </div>
-
-           
+          </div>
         </div>
 
-        
+        <div class="contact-card reveal">
+          <h3>Available for scripting work</h3>
+          <p>
+            I can help with Roblox systems, gameplay, UI, progression, DataStores, monetization logic, and game polish.
+          </p>
+
+          <div class="pill-row">
+            <span class="pill">Roblox Luau</span>
+            <span class="pill">Scripting</span>
+            <span class="pill">Game Systems</span>
+            <span class="pill">UI Logic</span>
+          </div>
+        </div>
       </div>
     </section>
 
     <div class="footer reveal">
-     All the way down, thanks for looking at my portfolio. Hope you liked it!
+      All the way down, thanks for looking at my portfolio. Hope you liked it!
     </div>
   </main>
 
@@ -921,57 +1005,69 @@
           description: "This is a commission I did..",
           url: "https://www.youtube.com/embed/1gpo8hr2R_M"
         }
-        
-        
       ],
 
       games: [
-   {
-  title: "Most Satisfying Keyboard Tower",
-  role: "Lead Scripter",
-  description: `Welcome to Keyboard ASMR Tower 🎧
+        {
+          title: "Most Satisfying Keyboard Tower",
+          role: "Lead Scripter",
+          description: `Welcome to Keyboard ASMR Tower 🎧
 
-  You can teleport to different towers using the TOWERS button on the right side of your screen!
+You can teleport to different towers using the TOWERS button on the right side of your screen!
 
-  PLAY WITH HEADPHONES FOR BEST EXPERIENCE 🎶🎶
+PLAY WITH HEADPHONES FOR BEST EXPERIENCE 🎶🎶
 
-  Climb multiple towers of satisfying keys. Jump, walk, and relax to the calming sounds!
+Climb multiple towers of satisfying keys. Jump, walk, and relax to the calming sounds!
 
-  Multiple Key Types:
-  Chocolate, Honey, Clacky, Bubble Wrap, Cookie, Snow, Lava, Fire
+Multiple Key Types:
+Chocolate, Honey, Clacky, Bubble Wrap, Cookie, Snow, Lava, Fire
 
-  Teleport to your last checkpoint at any time!`,
-  genre: "Tower game",
-  universeId: 96689353832855,
-  fallbackVisits: "601.7K+",
-  gameUrl: "https://www.roblox.com/games/96689353832855/Most-Satisfying-Keyboard-Tower",
-  bannerImage: "assets/games/keyboard-tower.png"
-},
-{
-  title: "+1 Speed Keyboard Escape",
-  role: "Lead Scripter",
-  description: `⚡ Welcome to +1 Speed ASMR Keyboard Escape!
+Teleport to your last checkpoint at any time!`,
+          genre: "Tower game",
+          universeId: 96689353832855,
+          fallbackVisits: "601.7K+",
+          gameUrl: "https://www.roblox.com/games/96689353832855/Most-Satisfying-Keyboard-Tower",
+          bannerImage: "assets/games/keyboard-tower.png"
+        },
+        {
+          title: "+1 Speed Keyboard Escape",
+          role: "Lead Scripter",
+          description: `⚡ Welcome to +1 Speed ASMR Keyboard Escape!
 
-  👟 Every step makes you faster
-  💪 Train on treadmills or run across the map to gain speed
-  🐦‍🔥 Unlock powerful multipliers
-  👥 Race with friends
-  🌍 Become the FASTEST on the server
-  🚀 But be careful… one misstep and you’ll be back at the start
+👟 Every step makes you faster
+💪 Train on treadmills or run across the map to gain speed
+🐦‍🔥 Unlock powerful multipliers
+👥 Race with friends
+🌍 Become the FASTEST on the server
+🚀 But be careful… one misstep and you’ll be back at the start
 
-  👍 Like the game and join the group`,
-  genre: "Obby",
-  universeId: 120740094197563,
-  fallbackVisits: "74.5K+",
-  gameUrl: "https://www.roblox.com/games/120740094197563/1-Speed-Keyboard-Escape#!/about",
-  bannerImage: "assets/games/speed-keyboard-escape.png"
-}
+👍 Like the game and join the group`,
+          genre: "Obby",
+          universeId: 120740094197563,
+          fallbackVisits: "74.5K+",
+          gameUrl: "https://www.roblox.com/games/120740094197563/1-Speed-Keyboard-Escape#!/about",
+          bannerImage: "assets/games/speed-keyboard-escape.png"
+        }
+      ],
+
+      releasedGames: [
+        {
+          title: "Maxi Scooter For Brainrots",
+          role: "Released Game",
+          description: `A Roblox game released by me. Ride a maxi scooter, collect Brainrots, upgrade your progress, and build your income.`,
+          genre: "Obby / Simulator",
+          universeId: null,
+          fallbackVisits: "Released",
+          gameUrl: "https://www.roblox.com/games/121515763917589/Maxi-Scooter-For-Brainrots#!/about",
+          bannerImage: "https://tr.rbxcdn.com/180DAY-3909b2ad217c72743d4c9d3f7c239abe/768/432/Image/Webp/noFilter"
+        }
       ]
     };
 
     const skillsGrid = document.getElementById("skillsGrid");
     const videosGrid = document.getElementById("videosGrid");
     const gamesGrid = document.getElementById("gamesGrid");
+    const releasedGamesGrid = document.getElementById("releasedGamesGrid");
     const searchInput = document.getElementById("skillSearch");
     const filterButtons = [...document.querySelectorAll(".filter-btn")];
 
@@ -982,23 +1078,31 @@
       article.className = "skill-card reveal";
       article.dataset.category = skill.category;
       article.dataset.search = `${skill.title} ${skill.description} ${skill.tags.join(" ")}`.toLowerCase();
+
       article.innerHTML = `
         <div class="skill-top">
           <div class="skill-icon">${skill.icon}</div>
           <div class="tag">${skill.level}</div>
         </div>
+
         <h3>${skill.title}</h3>
         <p>${skill.description}</p>
+
         <div class="pill-row">
           ${skill.tags.map(tag => `<span class="pill">${tag}</span>`).join("")}
         </div>
       `;
+
       return article;
     }
 
     function renderSkills() {
       skillsGrid.innerHTML = "";
-      portfolioData.skills.forEach(skill => skillsGrid.appendChild(createSkillCard(skill)));
+
+      portfolioData.skills.forEach(skill => {
+        skillsGrid.appendChild(createSkillCard(skill));
+      });
+
       applySkillFilters();
       observeReveals();
     }
@@ -1010,6 +1114,7 @@
       cards.forEach(card => {
         const matchesCategory = currentFilter === "all" || card.dataset.category === currentFilter;
         const matchesSearch = card.dataset.search.includes(query);
+
         card.classList.toggle("hidden", !(matchesCategory && matchesSearch));
       });
     }
@@ -1017,7 +1122,11 @@
     filterButtons.forEach(btn => {
       btn.addEventListener("click", () => {
         currentFilter = btn.dataset.filter;
-        filterButtons.forEach(button => button.classList.remove("active"));
+
+        filterButtons.forEach(button => {
+          button.classList.remove("active");
+        });
+
         btn.classList.add("active");
         applySkillFilters();
       });
@@ -1028,9 +1137,11 @@
     function createVideoCard(video) {
       const article = document.createElement("article");
       article.className = "video-card reveal";
+
       article.innerHTML = `
         <h3>${video.title}</h3>
         <p>${video.description}</p>
+
         <div class="video-frame">
           <iframe
             src="${video.url}"
@@ -1041,23 +1152,39 @@
           ></iframe>
         </div>
       `;
+
       return article;
     }
 
     function renderVideos() {
       videosGrid.innerHTML = "";
-      portfolioData.videos.forEach(video => videosGrid.appendChild(createVideoCard(video)));
+
+      portfolioData.videos.forEach(video => {
+        videosGrid.appendChild(createVideoCard(video));
+      });
+
       observeReveals();
     }
 
     async function fetchVisits(universeId) {
-      if (!universeId || Number.isNaN(Number(universeId))) return null;
+      if (!universeId || Number.isNaN(Number(universeId))) {
+        return null;
+      }
+
       try {
         const response = await fetch(`https://games.roblox.com/v1/games?universeIds=${universeId}`);
-        if (!response.ok) throw new Error("Failed to fetch visits");
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch visits");
+        }
+
         const data = await response.json();
         const game = data?.data?.[0];
-        if (!game || typeof game.visits !== "number") return null;
+
+        if (!game || typeof game.visits !== "number") {
+          return null;
+        }
+
         return formatVisits(game.visits);
       } catch (error) {
         console.warn("Visit fetch fallback used for universeId:", universeId, error);
@@ -1066,56 +1193,99 @@
     }
 
     function formatVisits(value) {
-      if (value >= 1000000000) return `${(value / 1000000000).toFixed(1)}B`;
-      if (value >= 1000000) return `${(value / 1000000).toFixed(1)}M`;
-      if (value >= 1000) return `${(value / 1000).toFixed(1)}K`;
+      if (value >= 1000000000) {
+        return `${(value / 1000000000).toFixed(1)}B`;
+      }
+
+      if (value >= 1000000) {
+        return `${(value / 1000000).toFixed(1)}M`;
+      }
+
+      if (value >= 1000) {
+        return `${(value / 1000).toFixed(1)}K`;
+      }
+
       return String(value);
     }
 
-   function createGameCard(game) {
-  const article = document.createElement("article");
-  article.className = "game-card reveal";
-  article.innerHTML = `
-    <div class="game-banner">
-      ${
-        game.bannerImage
-          ? `<img src="${game.bannerImage}" alt="${game.title} screenshot" class="game-banner-image">`
-          : `<div class="game-banner-placeholder">${game.bannerText || "Project banner or screenshot"}</div>`
-      }
-    </div>
-    <div class="game-top">
-      <div>
-        <h3>${game.title}</h3>
-        <p>${game.description}</p>
-      </div>
-      <div class="tag">${game.role}</div>
-    </div>
-    <div class="game-meta">
-      <div class="meta-box">
-        <div class="meta-label">Genre</div>
-        <div class="meta-value">${game.genre}</div>
-      </div>
-      <div class="meta-box">
-        <div class="meta-label">Visits</div>
-        <div class="meta-value" data-visits="${game.universeId || ""}">${game.fallbackVisits || "Add value"}</div>
-      </div>
-    </div>
-    <div class="game-actions">
-      <a class="btn primary" href="${game.gameUrl}" target="_blank" rel="noreferrer">Open Game</a>
-    </div>
-  `;
-  return article;
-}
+    function createGameCard(game) {
+      const article = document.createElement("article");
+      article.className = "game-card reveal";
+
+      article.innerHTML = `
+        <div class="game-banner">
+          ${
+            game.bannerImage
+              ? `<img src="${game.bannerImage}" alt="${game.title} screenshot" class="game-banner-image">`
+              : `<div class="game-banner-placeholder">${game.bannerText || "Project banner or screenshot"}</div>`
+          }
+        </div>
+
+        <div class="game-top">
+          <div>
+            <h3>${game.title}</h3>
+            <p>${game.description}</p>
+          </div>
+
+          <div class="tag">${game.role}</div>
+        </div>
+
+        <div class="game-meta">
+          <div class="meta-box">
+            <div class="meta-label">Genre</div>
+            <div class="meta-value">${game.genre}</div>
+          </div>
+
+          <div class="meta-box">
+            <div class="meta-label">Visits</div>
+            <div class="meta-value" data-visits="${game.universeId || ""}">${game.fallbackVisits || "Add value"}</div>
+          </div>
+        </div>
+
+        <div class="game-actions">
+          <a class="btn primary" href="${game.gameUrl}" target="_blank" rel="noreferrer">Open Game</a>
+        </div>
+      `;
+
+      return article;
+    }
 
     async function renderGames() {
       gamesGrid.innerHTML = "";
-      portfolioData.games.forEach(game => gamesGrid.appendChild(createGameCard(game)));
+
+      portfolioData.games.forEach(game => {
+        gamesGrid.appendChild(createGameCard(game));
+      });
+
       observeReveals();
 
       const visitNodes = [...gamesGrid.querySelectorAll("[data-visits]")];
+
       for (const node of visitNodes) {
         const universeId = node.getAttribute("data-visits");
         const liveVisits = await fetchVisits(universeId);
+
+        if (liveVisits) {
+          node.textContent = liveVisits;
+        }
+      }
+    }
+
+    async function renderReleasedGames() {
+      releasedGamesGrid.innerHTML = "";
+
+      portfolioData.releasedGames.forEach(game => {
+        releasedGamesGrid.appendChild(createGameCard(game));
+      });
+
+      observeReveals();
+
+      const visitNodes = [...releasedGamesGrid.querySelectorAll("[data-visits]")];
+
+      for (const node of visitNodes) {
+        const universeId = node.getAttribute("data-visits");
+        const liveVisits = await fetchVisits(universeId);
+
         if (liveVisits) {
           node.textContent = liveVisits;
         }
@@ -1124,9 +1294,13 @@
 
     function animateCounts() {
       const counters = document.querySelectorAll("[data-count]");
+
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (!entry.isIntersecting) return;
+          if (!entry.isIntersecting) {
+            return;
+          }
+
           const el = entry.target;
           const target = Number(el.dataset.count || 0);
           const duration = 1200;
@@ -1135,20 +1309,29 @@
           function tick(now) {
             const progress = Math.min((now - start) / duration, 1);
             const eased = 1 - Math.pow(1 - progress, 3);
+
             el.textContent = Math.round(target * eased).toString();
-            if (progress < 1) requestAnimationFrame(tick);
+
+            if (progress < 1) {
+              requestAnimationFrame(tick);
+            }
           }
 
           requestAnimationFrame(tick);
           observer.unobserve(el);
         });
-      }, { threshold: 0.5 });
+      }, {
+        threshold: 0.5
+      });
 
-      counters.forEach(counter => observer.observe(counter));
+      counters.forEach(counter => {
+        observer.observe(counter);
+      });
     }
 
     function observeReveals() {
       const revealEls = document.querySelectorAll(".reveal:not(.visible)");
+
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
@@ -1156,22 +1339,31 @@
             obs.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.14 });
+      }, {
+        threshold: 0.14
+      });
 
-      revealEls.forEach(el => observer.observe(el));
+      revealEls.forEach(el => {
+        observer.observe(el);
+      });
     }
 
     function setActiveNav() {
       const links = [...document.querySelectorAll(".nav a")];
+
       const sections = links
         .map(link => document.querySelector(link.getAttribute("href")))
         .filter(Boolean);
 
       const onScroll = () => {
         let current = sections[0];
+
         sections.forEach(section => {
           const top = section.getBoundingClientRect().top;
-          if (top <= 130) current = section;
+
+          if (top <= 130) {
+            current = section;
+          }
         });
 
         links.forEach(link => {
@@ -1179,17 +1371,20 @@
         });
       };
 
-      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("scroll", onScroll, {
+        passive: true
+      });
+
       onScroll();
     }
 
     renderSkills();
     renderVideos();
     renderGames();
+    renderReleasedGames();
     animateCounts();
     observeReveals();
     setActiveNav();
   </script>
 </body>
 </html>
-
