@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Chop's Portfolio</title>
+  <title>Chop'  s Portfolio</title>
   <meta name="description" content="Interactive Roblox developer portfolio website for GitHub Pages." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1294,31 +1294,72 @@
 
     const robloxCache = new Map();
 
-    async function fetchUniverseIdFromPlaceId(placeId) {
-      const cleanPlaceId = Number(placeId);
+   async function fetchUniverseIdFromPlaceId(placeId) {
+  const cleanPlaceId = Number(placeId);
 
-      if (!cleanPlaceId || Number.isNaN(cleanPlaceId)) {
-        return null;
+  if (!cleanPlaceId || Number.isNaN(cleanPlaceId)) {
+    return null;
+  }
+
+  const cacheKey = `place:${cleanPlaceId}`;
+
+  if (robloxCache.has(cacheKey)) {
+    return robloxCache.get(cacheKey);
+  }
+
+  const urls = [
+    `https://apis.roproxy.com/universes/v1/places/${cleanPlaceId}/universe`,
+    `https://games.roproxy.com/v1/games/multiget-place-details?placeIds=${cleanPlaceId}`
+  ];
+
+  for (const url of urls) {
+    try {
+      const data = await fetchJson(url);
+
+      const universeId =
+        Number(data?.universeId) ||
+        Number(data?.UniverseId) ||
+        Number(data?.[0]?.universeId) ||
+        Number(data?.[0]?.universeId);
+
+      if (universeId && !Number.isNaN(universeId)) {
+        robloxCache.set(cacheKey, universeId);
+        return universeId;
       }
-
-      const cacheKey = `place:${cleanPlaceId}`;
-
-      if (robloxCache.has(cacheKey)) {
-        return robloxCache.get(cacheKey);
-      }
-
-      try {
-        const data = await fetchJson(`https://apis.roblox.com/universes/v1/places/${cleanPlaceId}/universe`);
-        const universeId = Number(data?.universeId || data?.UniverseId);
-
-        robloxCache.set(cacheKey, universeId || null);
-        return universeId || null;
-      } catch (error) {
-        console.warn("Could not convert placeId to universeId:", cleanPlaceId, error);
-        robloxCache.set(cacheKey, null);
-        return null;
-      }
+    } catch (error) {
+      console.warn("Universe ID lookup failed on:", url, error);
     }
+  }
+
+  robloxCache.set(cacheKey, null);
+  return null;
+}
+
+async function fetchRobloxGameByUniverseId(universeId) {
+  const cleanUniverseId = Number(universeId);
+
+  if (!cleanUniverseId || Number.isNaN(cleanUniverseId)) {
+    return null;
+  }
+
+  const cacheKey = `universe:${cleanUniverseId}`;
+
+  if (robloxCache.has(cacheKey)) {
+    return robloxCache.get(cacheKey);
+  }
+
+  try {
+    const data = await fetchJson(`https://games.roproxy.com/v1/games?universeIds=${cleanUniverseId}`);
+    const robloxGame = data?.data?.[0] || null;
+
+    robloxCache.set(cacheKey, robloxGame);
+    return robloxGame;
+  } catch (error) {
+    console.warn("Could not fetch Roblox game data:", cleanUniverseId, error);
+    robloxCache.set(cacheKey, null);
+    return null;
+  }
+}
 
     async function fetchRobloxGameByUniverseId(universeId) {
       const cleanUniverseId = Number(universeId);
@@ -1391,16 +1432,24 @@
       return String(number);
     }
 
-    function getRobloxGenre(robloxGame, fallbackGenre) {
-      return (
-        robloxGame?.genreDisplayName ||
-        robloxGame?.genre ||
-        robloxGame?.genre_l1 ||
-        robloxGame?.genre_l2 ||
-        fallbackGenre ||
-        "Unknown"
-      );
-    }
+   function getRobloxGenre(robloxGame, fallbackGenre) {
+  const possibleGenre =
+    robloxGame?.genreDisplayName ||
+    robloxGame?.genre ||
+    robloxGame?.genre_l1?.displayName ||
+    robloxGame?.genre_l1?.name ||
+    robloxGame?.genre_l1 ||
+    robloxGame?.genre_l2?.displayName ||
+    robloxGame?.genre_l2?.name ||
+    robloxGame?.genre_l2 ||
+    fallbackGenre;
+
+  if (!possibleGenre || possibleGenre === "Loading...") {
+    return "Unknown";
+  }
+
+  return String(possibleGenre);
+}
 
     function createSkillCard(skill) {
       const article = document.createElement("article");
