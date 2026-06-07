@@ -509,6 +509,10 @@
       z-index: 1;
     }
 
+    .game-description {
+      white-space: pre-line;
+    }
+
     .pill-row {
       display: flex;
       gap: 8px;
@@ -911,9 +915,14 @@
   <script>
     function setupStringBackground() {
       const canvas = document.getElementById("stringBackground");
+
+      if (!canvas) {
+        return;
+      }
+
       const ctx = canvas.getContext("2d");
 
-      if (!canvas || !ctx) {
+      if (!ctx) {
         return;
       }
 
@@ -1207,78 +1216,42 @@
         {
           title: "Most Satisfying Keyboard Tower",
           role: "Lead Scripter",
-          description: `Welcome to Keyboard ASMR Tower 🎧
-
-You can teleport to different towers using the TOWERS button on the right side of your screen!
-
-PLAY WITH HEADPHONES FOR BEST EXPERIENCE 🎶🎶
-
-Climb multiple towers of satisfying keys. Jump, walk, and relax to the calming sounds!
-
-Multiple Key Types:
-Chocolate, Honey, Clacky, Bubble Wrap, Cookie, Snow, Lava, Fire
-
-Teleport to your last checkpoint at any time!`,
-          genre: "Tower game",
-          universeId: 96689353832855,
+          description: "Loading Roblox description...",
+          genre: "Loading...",
+          placeId: 96689353832855,
           fallbackVisits: "601.7K+",
           gameUrl: "https://www.roblox.com/games/96689353832855/Most-Satisfying-Keyboard-Tower",
           bannerImage: "assets/games/keyboard-tower.png"
         },
-
-        
- {
+        {
           title: "+1 Hacks for Brainrots!",
           role: "Lead Scripter",
-          description: `Welcome to +1 Hack for Brainrots! 💪
-
-🖥️ Upgrade your HACKING POWER!
-🔥 Get stronger hacks and steal BRAINROTS!
-🎖️ Level Up your Brainrots and get more CASH!
-⚡ Upgrade your hacks to get STRONGER faster!
-
-💤 Your Brainrots earn cash OFFLINE!
-
-👍 Like the game and join the group for MORE UPDATES!
-
-🖥️ Experience it on PC, mobile, tablet!  `,
-          genre: "Simulation",
-          universeId: 72608696988622,
+          description: "Loading Roblox description...",
+          genre: "Loading...",
+          placeId: 72608696988622,
           fallbackVisits: "Released",
-          gameUrl: "hhttps://www.roblox.com/games/72608696988622/1-Hacks-for-Brainrots#!/about",
+          gameUrl: "https://www.roblox.com/games/72608696988622/1-Hacks-for-Brainrots#!/about",
           bannerImage: "assets/games/+1hack.png"
         },
-
-        
-{
+        {
           title: "+1 Speed Keyboard Escape",
           role: "Lead Scripter",
-          description: `⚡ Welcome to +1 Speed ASMR Keyboard Escape!
-
-👟 Every step makes you faster
-💪 Train on treadmills or run across the map to gain speed
-🐦‍🔥 Unlock powerful multipliers
-👥 Race with friends
-🌍 Become the FASTEST on the server
-🚀 But be careful… one misstep and you’ll be back at the start
-
-👍 Like the game and join the group`,
-          genre: "Obby",
-          universeId: 120740094197563,
+          description: "Loading Roblox description...",
+          genre: "Loading...",
+          placeId: 120740094197563,
           fallbackVisits: "74.5K+",
           gameUrl: "https://www.roblox.com/games/120740094197563/1-Speed-Keyboard-Escape#!/about",
           bannerImage: "assets/games/speed-keyboard-escape.png"
         }
-        
       ],
 
       releasedGames: [
         {
           title: "Maxi Scooter For Brainrots",
           role: "Released Game",
-          description: "A Roblox game released by me. Ride a maxi scooter, collect Brainrots, upgrade your progress, and build your income.",
-          genre: "Obby / Simulator",
-          universeId: null,
+          description: "Loading Roblox description...",
+          genre: "Loading...",
+          placeId: 121515763917589,
           fallbackVisits: "Released",
           gameUrl: "https://www.roblox.com/games/121515763917589/Maxi-Scooter-For-Brainrots#!/about",
           bannerImage: "https://tr.rbxcdn.com/180DAY-3909b2ad217c72743d4c9d3f7c239abe/768/432/Image/Webp/noFilter"
@@ -1295,6 +1268,140 @@ Teleport to your last checkpoint at any time!`,
 
     let currentFilter = "all";
 
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function getPlaceIdFromUrl(url) {
+      const match = String(url || "").match(/roblox\.com\/games\/(\d+)/i);
+      return match ? Number(match[1]) : null;
+    }
+
+    async function fetchJson(url) {
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error(`Request failed with status ${response.status}`);
+      }
+
+      return response.json();
+    }
+
+    const robloxCache = new Map();
+
+    async function fetchUniverseIdFromPlaceId(placeId) {
+      const cleanPlaceId = Number(placeId);
+
+      if (!cleanPlaceId || Number.isNaN(cleanPlaceId)) {
+        return null;
+      }
+
+      const cacheKey = `place:${cleanPlaceId}`;
+
+      if (robloxCache.has(cacheKey)) {
+        return robloxCache.get(cacheKey);
+      }
+
+      try {
+        const data = await fetchJson(`https://apis.roblox.com/universes/v1/places/${cleanPlaceId}/universe`);
+        const universeId = Number(data?.universeId || data?.UniverseId);
+
+        robloxCache.set(cacheKey, universeId || null);
+        return universeId || null;
+      } catch (error) {
+        console.warn("Could not convert placeId to universeId:", cleanPlaceId, error);
+        robloxCache.set(cacheKey, null);
+        return null;
+      }
+    }
+
+    async function fetchRobloxGameByUniverseId(universeId) {
+      const cleanUniverseId = Number(universeId);
+
+      if (!cleanUniverseId || Number.isNaN(cleanUniverseId)) {
+        return null;
+      }
+
+      const cacheKey = `universe:${cleanUniverseId}`;
+
+      if (robloxCache.has(cacheKey)) {
+        return robloxCache.get(cacheKey);
+      }
+
+      try {
+        const data = await fetchJson(`https://games.roblox.com/v1/games?universeIds=${cleanUniverseId}`);
+        const robloxGame = data?.data?.[0] || null;
+
+        robloxCache.set(cacheKey, robloxGame);
+        return robloxGame;
+      } catch (error) {
+        console.warn("Could not fetch Roblox game data:", cleanUniverseId, error);
+        robloxCache.set(cacheKey, null);
+        return null;
+      }
+    }
+
+    async function fetchRobloxGameInfo(game) {
+      const directUniverseId = Number(game.universeId);
+      const placeId = Number(game.placeId || getPlaceIdFromUrl(game.gameUrl));
+
+      if (directUniverseId && !Number.isNaN(directUniverseId)) {
+        const directGame = await fetchRobloxGameByUniverseId(directUniverseId);
+
+        if (directGame) {
+          return directGame;
+        }
+      }
+
+      if (placeId && !Number.isNaN(placeId)) {
+        const universeId = await fetchUniverseIdFromPlaceId(placeId);
+
+        if (universeId) {
+          return fetchRobloxGameByUniverseId(universeId);
+        }
+      }
+
+      return null;
+    }
+
+    function formatVisits(value) {
+      const number = Number(value);
+
+      if (Number.isNaN(number)) {
+        return null;
+      }
+
+      if (number >= 1000000000) {
+        return `${(number / 1000000000).toFixed(1)}B`;
+      }
+
+      if (number >= 1000000) {
+        return `${(number / 1000000).toFixed(1)}M`;
+      }
+
+      if (number >= 1000) {
+        return `${(number / 1000).toFixed(1)}K`;
+      }
+
+      return String(number);
+    }
+
+    function getRobloxGenre(robloxGame, fallbackGenre) {
+      return (
+        robloxGame?.genreDisplayName ||
+        robloxGame?.genre ||
+        robloxGame?.genre_l1 ||
+        robloxGame?.genre_l2 ||
+        fallbackGenre ||
+        "Unknown"
+      );
+    }
+
     function createSkillCard(skill) {
       const article = document.createElement("article");
       article.className = "skill-card reveal";
@@ -1303,15 +1410,15 @@ Teleport to your last checkpoint at any time!`,
 
       article.innerHTML = `
         <div class="skill-top">
-          <div class="skill-icon">${skill.icon}</div>
-          <div class="tag">${skill.level}</div>
+          <div class="skill-icon">${escapeHTML(skill.icon)}</div>
+          <div class="tag">${escapeHTML(skill.level)}</div>
         </div>
 
-        <h3>${skill.title}</h3>
-        <p>${skill.description}</p>
+        <h3>${escapeHTML(skill.title)}</h3>
+        <p>${escapeHTML(skill.description)}</p>
 
         <div class="pill-row">
-          ${skill.tags.map(tag => `<span class="pill">${tag}</span>`).join("")}
+          ${skill.tags.map(tag => `<span class="pill">${escapeHTML(tag)}</span>`).join("")}
         </div>
       `;
 
@@ -1361,13 +1468,13 @@ Teleport to your last checkpoint at any time!`,
       article.className = "video-card reveal";
 
       article.innerHTML = `
-        <h3>${video.title}</h3>
-        <p>${video.description}</p>
+        <h3>${escapeHTML(video.title)}</h3>
+        <p>${escapeHTML(video.description)}</p>
 
         <div class="video-frame">
           <iframe
-            src="${video.url}"
-            title="${video.title}"
+            src="${escapeHTML(video.url)}"
+            title="${escapeHTML(video.title)}"
             loading="lazy"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
@@ -1388,48 +1495,6 @@ Teleport to your last checkpoint at any time!`,
       observeReveals();
     }
 
-    async function fetchVisits(universeId) {
-      if (!universeId || Number.isNaN(Number(universeId))) {
-        return null;
-      }
-
-      try {
-        const response = await fetch(`https://games.roblox.com/v1/games?universeIds=${universeId}`);
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch visits");
-        }
-
-        const data = await response.json();
-        const game = data?.data?.[0];
-
-        if (!game || typeof game.visits !== "number") {
-          return null;
-        }
-
-        return formatVisits(game.visits);
-      } catch (error) {
-        console.warn("Visit fetch fallback used for universeId:", universeId, error);
-        return null;
-      }
-    }
-
-    function formatVisits(value) {
-      if (value >= 1000000000) {
-        return `${(value / 1000000000).toFixed(1)}B`;
-      }
-
-      if (value >= 1000000) {
-        return `${(value / 1000000).toFixed(1)}M`;
-      }
-
-      if (value >= 1000) {
-        return `${(value / 1000).toFixed(1)}K`;
-      }
-
-      return String(value);
-    }
-
     function createGameCard(game) {
       const article = document.createElement("article");
       article.className = "game-card reveal";
@@ -1438,80 +1503,109 @@ Teleport to your last checkpoint at any time!`,
         <div class="game-banner">
           ${
             game.bannerImage
-              ? `<img src="${game.bannerImage}" alt="${game.title} screenshot" class="game-banner-image">`
-              : `<div class="game-banner-placeholder">${game.bannerText || "Project banner or screenshot"}</div>`
+              ? `<img src="${escapeHTML(game.bannerImage)}" alt="${escapeHTML(game.title)} screenshot" class="game-banner-image">`
+              : `<div class="game-banner-placeholder">${escapeHTML(game.bannerText || "Project banner or screenshot")}</div>`
           }
         </div>
 
         <div class="game-top">
           <div>
-            <h3>${game.title}</h3>
-            <p>${game.description}</p>
+            <h3 class="game-title">${escapeHTML(game.title)}</h3>
+            <p class="game-description">${escapeHTML(game.description || "Loading Roblox description...")}</p>
           </div>
 
-          <div class="tag">${game.role}</div>
+          <div class="tag">${escapeHTML(game.role)}</div>
         </div>
 
         <div class="game-meta">
           <div class="meta-box">
             <div class="meta-label">Genre</div>
-            <div class="meta-value">${game.genre}</div>
+            <div class="meta-value game-genre">${escapeHTML(game.genre || "Loading...")}</div>
           </div>
 
           <div class="meta-box">
             <div class="meta-label">Visits</div>
-            <div class="meta-value" data-visits="${game.universeId || ""}">${game.fallbackVisits || "Add value"}</div>
+            <div class="meta-value game-visits">${escapeHTML(game.fallbackVisits || "Loading...")}</div>
           </div>
         </div>
 
         <div class="game-actions">
-          <a class="btn primary" href="${game.gameUrl}" target="_blank" rel="noreferrer">Open Game</a>
+          <a class="btn primary" href="${escapeHTML(game.gameUrl)}" target="_blank" rel="noreferrer">Open Game</a>
         </div>
       `;
 
       return article;
     }
 
-    async function renderGames() {
-      gamesGrid.innerHTML = "";
+    async function updateGameCardFromRoblox(card, game) {
+      const robloxGame = await fetchRobloxGameInfo(game);
 
-      portfolioData.games.forEach(game => {
-        gamesGrid.appendChild(createGameCard(game));
-      });
+      if (!robloxGame) {
+        const descriptionNode = card.querySelector(".game-description");
+        const genreNode = card.querySelector(".game-genre");
+        const visitsNode = card.querySelector(".game-visits");
 
-      observeReveals();
-
-      const visitNodes = [...gamesGrid.querySelectorAll("[data-visits]")];
-
-      for (const node of visitNodes) {
-        const universeId = node.getAttribute("data-visits");
-        const liveVisits = await fetchVisits(universeId);
-
-        if (liveVisits) {
-          node.textContent = liveVisits;
+        if (descriptionNode) {
+          descriptionNode.textContent = game.description || "Roblox data could not load.";
         }
+
+        if (genreNode) {
+          genreNode.textContent = game.genre || "Unknown";
+        }
+
+        if (visitsNode) {
+          visitsNode.textContent = game.fallbackVisits || "Unknown";
+        }
+
+        return;
+      }
+
+      const titleNode = card.querySelector(".game-title");
+      const descriptionNode = card.querySelector(".game-description");
+      const genreNode = card.querySelector(".game-genre");
+      const visitsNode = card.querySelector(".game-visits");
+
+      if (titleNode && robloxGame.name) {
+        titleNode.textContent = robloxGame.name;
+      }
+
+      if (descriptionNode) {
+        descriptionNode.textContent = robloxGame.description || game.description || "No Roblox description found.";
+      }
+
+      if (genreNode) {
+        genreNode.textContent = getRobloxGenre(robloxGame, game.genre);
+      }
+
+      if (visitsNode) {
+        visitsNode.textContent = formatVisits(robloxGame.visits) || game.fallbackVisits || "Unknown";
       }
     }
 
-    async function renderReleasedGames() {
-      releasedGamesGrid.innerHTML = "";
+    async function renderGameList(container, games) {
+      container.innerHTML = "";
 
-      portfolioData.releasedGames.forEach(game => {
-        releasedGamesGrid.appendChild(createGameCard(game));
+      const cards = games.map(game => {
+        const card = createGameCard(game);
+        container.appendChild(card);
+        return card;
       });
 
       observeReveals();
 
-      const visitNodes = [...releasedGamesGrid.querySelectorAll("[data-visits]")];
+      await Promise.all(
+        cards.map((card, index) => {
+          return updateGameCardFromRoblox(card, games[index]);
+        })
+      );
+    }
 
-      for (const node of visitNodes) {
-        const universeId = node.getAttribute("data-visits");
-        const liveVisits = await fetchVisits(universeId);
+    async function renderGames() {
+      await renderGameList(gamesGrid, portfolioData.games);
+    }
 
-        if (liveVisits) {
-          node.textContent = liveVisits;
-        }
-      }
+    async function renderReleasedGames() {
+      await renderGameList(releasedGamesGrid, portfolioData.releasedGames);
     }
 
     function animateCounts() {
