@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Chop'  s Portfolio</title>
+  <title>Chop's Portfolio</title>
   <meta name="description" content="Interactive Roblox developer portfolio website for GitHub Pages." />
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1216,30 +1216,58 @@
         {
           title: "Most Satisfying Keyboard Tower",
           role: "Lead Scripter",
-          description: "Loading Roblox description...",
-          genre: "Loading...",
-          placeId: 96689353832855,
-          fallbackVisits: "601.7K+",
+          description: `Welcome to Keyboard ASMR Tower 🎧
+
+You can teleport to different towers using the TOWERS button on the right side of your screen!
+
+PLAY WITH HEADPHONES FOR BEST EXPERIENCE 🎶🎶
+
+Climb multiple towers of satisfying keys. Jump, walk, and relax to the calming sounds!
+
+Multiple Key Types:
+Chocolate, Honey, Clacky, Bubble Wrap, Cookie, Snow, Lava, Fire
+
+Teleport to your last checkpoint at any time!`,
+          genre: "Tower game",
+          visits: "601.7K+",
           gameUrl: "https://www.roblox.com/games/96689353832855/Most-Satisfying-Keyboard-Tower",
           bannerImage: "assets/games/keyboard-tower.png"
         },
         {
           title: "+1 Hacks for Brainrots!",
           role: "Lead Scripter",
-          description: "Loading Roblox description...",
-          genre: "Loading...",
-          placeId: 72608696988622,
-          fallbackVisits: "Released",
+          description: `Welcome to +1 Hack for Brainrots! 💪
+
+🖥️ Upgrade your HACKING POWER!
+🔥 Get stronger hacks and steal BRAINROTS!
+🎖️ Level Up your Brainrots and get more CASH!
+⚡ Upgrade your hacks to get STRONGER faster!
+
+💤 Your Brainrots earn cash OFFLINE!
+
+👍 Like the game and join the group for MORE UPDATES!
+
+🖥️ Experience it on PC, mobile, tablet!`,
+          genre: "Simulation",
+          visits: "Released",
           gameUrl: "https://www.roblox.com/games/72608696988622/1-Hacks-for-Brainrots#!/about",
           bannerImage: "assets/games/+1hack.png"
         },
         {
           title: "+1 Speed Keyboard Escape",
           role: "Lead Scripter",
-          description: "Loading Roblox description...",
-          genre: "Loading...",
-          placeId: 120740094197563,
-          fallbackVisits: "74.5K+",
+          description: `⚡ Welcome to +1 Speed ASMR Keyboard Escape!
+
+👟 Every step makes you faster
+💪 Train on treadmills or run across the map to gain speed
+🐦‍🔥 Unlock powerful multipliers
+👥 Race with friends
+🌍 Become the FASTEST on the server
+🚀 But be careful… one misstep and you’ll be back at the start
+
+👍 Like the game and join the group`,
+          genre: "Obby",
+          visits: "74.5K+",
           gameUrl: "https://www.roblox.com/games/120740094197563/1-Speed-Keyboard-Escape#!/about",
           bannerImage: "assets/games/speed-keyboard-escape.png"
         }
@@ -1249,10 +1277,9 @@
         {
           title: "Maxi Scooter For Brainrots",
           role: "Released Game",
-          description: "Loading Roblox description...",
-          genre: "Loading...",
-          placeId: 121515763917589,
-          fallbackVisits: "Released",
+          description: "A Roblox game released by me. Ride a maxi scooter, collect Brainrots, upgrade your progress, and build your income.",
+          genre: "Obby / Simulator",
+          visits: "Released",
           gameUrl: "https://www.roblox.com/games/121515763917589/Maxi-Scooter-For-Brainrots#!/about",
           bannerImage: "https://tr.rbxcdn.com/180DAY-3909b2ad217c72743d4c9d3f7c239abe/768/432/Image/Webp/noFilter"
         }
@@ -1276,180 +1303,6 @@
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
     }
-
-    function getPlaceIdFromUrl(url) {
-      const match = String(url || "").match(/roblox\.com\/games\/(\d+)/i);
-      return match ? Number(match[1]) : null;
-    }
-
-    async function fetchJson(url) {
-      const response = await fetch(url);
-
-      if (!response.ok) {
-        throw new Error(`Request failed with status ${response.status}`);
-      }
-
-      return response.json();
-    }
-
-    const robloxCache = new Map();
-
-   async function fetchUniverseIdFromPlaceId(placeId) {
-  const cleanPlaceId = Number(placeId);
-
-  if (!cleanPlaceId || Number.isNaN(cleanPlaceId)) {
-    return null;
-  }
-
-  const cacheKey = `place:${cleanPlaceId}`;
-
-  if (robloxCache.has(cacheKey)) {
-    return robloxCache.get(cacheKey);
-  }
-
-  const urls = [
-    `https://apis.roproxy.com/universes/v1/places/${cleanPlaceId}/universe`,
-    `https://games.roproxy.com/v1/games/multiget-place-details?placeIds=${cleanPlaceId}`
-  ];
-
-  for (const url of urls) {
-    try {
-      const data = await fetchJson(url);
-
-      const universeId =
-        Number(data?.universeId) ||
-        Number(data?.UniverseId) ||
-        Number(data?.[0]?.universeId) ||
-        Number(data?.[0]?.universeId);
-
-      if (universeId && !Number.isNaN(universeId)) {
-        robloxCache.set(cacheKey, universeId);
-        return universeId;
-      }
-    } catch (error) {
-      console.warn("Universe ID lookup failed on:", url, error);
-    }
-  }
-
-  robloxCache.set(cacheKey, null);
-  return null;
-}
-
-async function fetchRobloxGameByUniverseId(universeId) {
-  const cleanUniverseId = Number(universeId);
-
-  if (!cleanUniverseId || Number.isNaN(cleanUniverseId)) {
-    return null;
-  }
-
-  const cacheKey = `universe:${cleanUniverseId}`;
-
-  if (robloxCache.has(cacheKey)) {
-    return robloxCache.get(cacheKey);
-  }
-
-  try {
-    const data = await fetchJson(`https://games.roproxy.com/v1/games?universeIds=${cleanUniverseId}`);
-    const robloxGame = data?.data?.[0] || null;
-
-    robloxCache.set(cacheKey, robloxGame);
-    return robloxGame;
-  } catch (error) {
-    console.warn("Could not fetch Roblox game data:", cleanUniverseId, error);
-    robloxCache.set(cacheKey, null);
-    return null;
-  }
-}
-
-    async function fetchRobloxGameByUniverseId(universeId) {
-      const cleanUniverseId = Number(universeId);
-
-      if (!cleanUniverseId || Number.isNaN(cleanUniverseId)) {
-        return null;
-      }
-
-      const cacheKey = `universe:${cleanUniverseId}`;
-
-      if (robloxCache.has(cacheKey)) {
-        return robloxCache.get(cacheKey);
-      }
-
-      try {
-        const data = await fetchJson(`https://games.roblox.com/v1/games?universeIds=${cleanUniverseId}`);
-        const robloxGame = data?.data?.[0] || null;
-
-        robloxCache.set(cacheKey, robloxGame);
-        return robloxGame;
-      } catch (error) {
-        console.warn("Could not fetch Roblox game data:", cleanUniverseId, error);
-        robloxCache.set(cacheKey, null);
-        return null;
-      }
-    }
-
-    async function fetchRobloxGameInfo(game) {
-      const directUniverseId = Number(game.universeId);
-      const placeId = Number(game.placeId || getPlaceIdFromUrl(game.gameUrl));
-
-      if (directUniverseId && !Number.isNaN(directUniverseId)) {
-        const directGame = await fetchRobloxGameByUniverseId(directUniverseId);
-
-        if (directGame) {
-          return directGame;
-        }
-      }
-
-      if (placeId && !Number.isNaN(placeId)) {
-        const universeId = await fetchUniverseIdFromPlaceId(placeId);
-
-        if (universeId) {
-          return fetchRobloxGameByUniverseId(universeId);
-        }
-      }
-
-      return null;
-    }
-
-    function formatVisits(value) {
-      const number = Number(value);
-
-      if (Number.isNaN(number)) {
-        return null;
-      }
-
-      if (number >= 1000000000) {
-        return `${(number / 1000000000).toFixed(1)}B`;
-      }
-
-      if (number >= 1000000) {
-        return `${(number / 1000000).toFixed(1)}M`;
-      }
-
-      if (number >= 1000) {
-        return `${(number / 1000).toFixed(1)}K`;
-      }
-
-      return String(number);
-    }
-
-   function getRobloxGenre(robloxGame, fallbackGenre) {
-  const possibleGenre =
-    robloxGame?.genreDisplayName ||
-    robloxGame?.genre ||
-    robloxGame?.genre_l1?.displayName ||
-    robloxGame?.genre_l1?.name ||
-    robloxGame?.genre_l1 ||
-    robloxGame?.genre_l2?.displayName ||
-    robloxGame?.genre_l2?.name ||
-    robloxGame?.genre_l2 ||
-    fallbackGenre;
-
-  if (!possibleGenre || possibleGenre === "Loading...") {
-    return "Unknown";
-  }
-
-  return String(possibleGenre);
-}
 
     function createSkillCard(skill) {
       const article = document.createElement("article");
@@ -1559,8 +1412,8 @@ async function fetchRobloxGameByUniverseId(universeId) {
 
         <div class="game-top">
           <div>
-            <h3 class="game-title">${escapeHTML(game.title)}</h3>
-            <p class="game-description">${escapeHTML(game.description || "Loading Roblox description...")}</p>
+            <h3>${escapeHTML(game.title)}</h3>
+            <p class="game-description">${escapeHTML(game.description)}</p>
           </div>
 
           <div class="tag">${escapeHTML(game.role)}</div>
@@ -1569,12 +1422,12 @@ async function fetchRobloxGameByUniverseId(universeId) {
         <div class="game-meta">
           <div class="meta-box">
             <div class="meta-label">Genre</div>
-            <div class="meta-value game-genre">${escapeHTML(game.genre || "Loading...")}</div>
+            <div class="meta-value">${escapeHTML(game.genre)}</div>
           </div>
 
           <div class="meta-box">
             <div class="meta-label">Visits</div>
-            <div class="meta-value game-visits">${escapeHTML(game.fallbackVisits || "Loading...")}</div>
+            <div class="meta-value">${escapeHTML(game.visits)}</div>
           </div>
         </div>
 
@@ -1586,75 +1439,22 @@ async function fetchRobloxGameByUniverseId(universeId) {
       return article;
     }
 
-    async function updateGameCardFromRoblox(card, game) {
-      const robloxGame = await fetchRobloxGameInfo(game);
-
-      if (!robloxGame) {
-        const descriptionNode = card.querySelector(".game-description");
-        const genreNode = card.querySelector(".game-genre");
-        const visitsNode = card.querySelector(".game-visits");
-
-        if (descriptionNode) {
-          descriptionNode.textContent = game.description || "Roblox data could not load.";
-        }
-
-        if (genreNode) {
-          genreNode.textContent = game.genre || "Unknown";
-        }
-
-        if (visitsNode) {
-          visitsNode.textContent = game.fallbackVisits || "Unknown";
-        }
-
-        return;
-      }
-
-      const titleNode = card.querySelector(".game-title");
-      const descriptionNode = card.querySelector(".game-description");
-      const genreNode = card.querySelector(".game-genre");
-      const visitsNode = card.querySelector(".game-visits");
-
-      if (titleNode && robloxGame.name) {
-        titleNode.textContent = robloxGame.name;
-      }
-
-      if (descriptionNode) {
-        descriptionNode.textContent = robloxGame.description || game.description || "No Roblox description found.";
-      }
-
-      if (genreNode) {
-        genreNode.textContent = getRobloxGenre(robloxGame, game.genre);
-      }
-
-      if (visitsNode) {
-        visitsNode.textContent = formatVisits(robloxGame.visits) || game.fallbackVisits || "Unknown";
-      }
-    }
-
-    async function renderGameList(container, games) {
+    function renderGameList(container, games) {
       container.innerHTML = "";
 
-      const cards = games.map(game => {
-        const card = createGameCard(game);
-        container.appendChild(card);
-        return card;
+      games.forEach(game => {
+        container.appendChild(createGameCard(game));
       });
 
       observeReveals();
-
-      await Promise.all(
-        cards.map((card, index) => {
-          return updateGameCardFromRoblox(card, games[index]);
-        })
-      );
     }
 
-    async function renderGames() {
-      await renderGameList(gamesGrid, portfolioData.games);
+    function renderGames() {
+      renderGameList(gamesGrid, portfolioData.games);
     }
 
-    async function renderReleasedGames() {
-      await renderGameList(releasedGamesGrid, portfolioData.releasedGames);
+    function renderReleasedGames() {
+      renderGameList(releasedGamesGrid, portfolioData.releasedGames);
     }
 
     function animateCounts() {
