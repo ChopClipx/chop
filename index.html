@@ -735,7 +735,7 @@
         <a href="#skills">Skills</a>
         <a href="#videos">Videos</a>
         <a href="#games">Games</a>
-        <a href="#released-games">Games I Released</a>
+
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -758,7 +758,7 @@
 
           <div class="hero-actions">
             <a class="btn primary" href="#games">See My Work</a>
-            <a class="btn" href="#released-games">Released Games</a>
+    
             <a class="btn" href="#contact">Contact Me</a>
           </div>
         </div>
@@ -785,13 +785,7 @@
               <div class="mini-pill">Luau</div>
             </div>
 
-            <div class="mini-card">
-              <div>
-                <strong>Released Game</strong>
-                <span>Maxi Scooter For Brainrots</span>
-              </div>
-              <div class="mini-pill">Roblox</div>
-            </div>
+          
           </div>
         </div>
       </div>
@@ -849,18 +843,6 @@
       <div class="grid games-grid" id="gamesGrid"></div>
     </section>
 
-    <section id="released-games">
-      <div class="section-head reveal">
-        <div>
-          <h2>Games I have released</h2>
-          <p>
-            These are games I have released publicly on Roblox.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid games-grid" id="releasedGamesGrid"></div>
-    </section>
 
     <section id="contact">
       <div class="section-head reveal">
@@ -1294,20 +1276,9 @@ Teleport to your last checkpoint at any time!`,
     const skillsGrid = document.getElementById("skillsGrid");
     const videosGrid = document.getElementById("videosGrid");
     const gamesGrid = document.getElementById("gamesGrid");
-    const releasedGamesGrid = document.getElementById("releasedGamesGrid");
+
     const searchInput = document.getElementById("skillSearch");
-    const filterButtons = [...document.querySelectorAll(".filter-btn")];
 
-    let currentFilter = "all";
-
-    function escapeHTML(value) {
-      return String(value ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
 
     function createSkillCard(skill) {
       const article = document.createElement("article");
@@ -1458,9 +1429,7 @@ Teleport to your last checkpoint at any time!`,
       renderGameList(gamesGrid, portfolioData.games);
     }
 
-    function renderReleasedGames() {
-      renderGameList(releasedGamesGrid, portfolioData.releasedGames);
-    }
+
 
     function animateCounts() {
       const counters = document.querySelectorAll("[data-count]");
@@ -1552,7 +1521,7 @@ Teleport to your last checkpoint at any time!`,
     renderSkills();
     renderVideos();
     renderGames();
-    renderReleasedGames();
+  
     animateCounts();
     observeReveals();
     setActiveNav();
