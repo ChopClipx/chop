@@ -9,26 +9,22 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --bg: #050b16;
-      --bg-2: #0a1526;
-      --surface: rgba(255, 255, 255, 0.06);
-      --surface-2: rgba(255, 255, 255, 0.09);
-      --surface-3: rgba(255, 255, 255, 0.14);
-      --text: #eef4ff;
-      --muted: #9fb2d1;
-      --accent: #70a5ff;
-      --accent-2: #5ef0d7;
-      --accent-3: #b78cff;
-      --border: rgba(255, 255, 255, 0.12);
-      --shadow: 0 18px 60px rgba(0, 0, 0, 0.35);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
+      --bg: #0f0e0c;
+      --bg-soft: #15130f;
+      --surface: #191712;
+      --surface-2: #201d17;
+      --cream: #f1e8d6;
+      --cream-soft: #d8cdb9;
+      --muted: #a99f8e;
+      --accent: #d6bd8b;
+      --border: #3a352b;
+      --border-light: #514a3d;
       --max: 1180px;
+      --radius: 8px;
     }
 
     * {
@@ -41,13 +37,16 @@
 
     body {
       margin: 0;
-      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(112, 165, 255, 0.16), transparent 28%),
-        radial-gradient(circle at top right, rgba(94, 240, 215, 0.11), transparent 24%),
-        linear-gradient(180deg, var(--bg), var(--bg-2));
+      min-height: 100vh;
       overflow-x: hidden;
+      color: var(--cream);
+      background: var(--bg);
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    ::selection {
+      color: var(--bg);
+      background: var(--accent);
     }
 
     a {
@@ -55,19 +54,24 @@
       text-decoration: none;
     }
 
+    button,
+    input {
+      font: inherit;
+    }
+
     img {
-      max-width: 100%;
       display: block;
+      max-width: 100%;
     }
 
     #stringBackground {
       position: fixed;
       inset: 0;
+      z-index: 0;
       width: 100%;
       height: 100%;
-      z-index: 0;
       pointer-events: none;
-      opacity: 0.95;
+      opacity: 0.28;
     }
 
     .background-vignette {
@@ -75,70 +79,69 @@
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      background:
-        radial-gradient(circle at 50% 12%, rgba(112, 165, 255, 0.1), transparent 30%),
-        radial-gradient(circle at 10% 80%, rgba(94, 240, 215, 0.08), transparent 24%),
-        radial-gradient(circle at 90% 75%, rgba(183, 140, 255, 0.08), transparent 26%),
-        linear-gradient(180deg, rgba(4, 9, 18, 0.08), rgba(4, 9, 18, 0.78));
+      background: rgba(15, 14, 12, 0.48);
     }
 
     .topbar {
       position: sticky;
       top: 0;
       z-index: 30;
-      backdrop-filter: blur(18px);
-      background: rgba(7, 17, 31, 0.55);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid var(--border);
+      background: rgba(15, 14, 12, 0.94);
+      backdrop-filter: blur(12px);
     }
 
     .topbar-inner {
       width: min(var(--max), calc(100% - 32px));
+      min-height: 72px;
       margin: 0 auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      min-height: 76px;
+      gap: 24px;
     }
 
     .brand {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-weight: 800;
-      letter-spacing: 0.02em;
+      font-weight: 700;
+      letter-spacing: -0.01em;
     }
 
     .brand-badge {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      width: 38px;
+      height: 38px;
       display: grid;
       place-items: center;
-      color: white;
-      font-weight: 800;
-      box-shadow: var(--shadow);
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      color: var(--accent);
+      background: transparent;
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: 18px;
+      font-weight: 700;
     }
 
     .nav {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 4px;
       flex-wrap: wrap;
     }
 
     .nav a {
-      padding: 10px 14px;
-      border-radius: 999px;
+      padding: 10px 12px;
+      border-bottom: 1px solid transparent;
       color: var(--muted);
-      transition: 0.25s ease;
+      font-size: 14px;
+      transition: color 0.18s ease, border-color 0.18s ease;
     }
 
     .nav a:hover,
     .nav a.active {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.08);
+      color: var(--cream);
+      border-color: var(--accent);
     }
 
     .container {
@@ -149,342 +152,349 @@
     }
 
     .hero {
-      min-height: calc(100vh - 76px);
+      min-height: calc(100vh - 72px);
+      padding: 72px 0 88px;
       display: grid;
       align-items: center;
-      padding: 46px 0 80px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.9fr;
-      gap: 28px;
-      align-items: start;
+      grid-template-columns: minmax(0, 1.35fr) minmax(300px, 0.65fr);
+      gap: 24px;
+      align-items: stretch;
     }
 
     .panel {
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.05));
       border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(16px);
+      border-radius: var(--radius);
+      background: rgba(25, 23, 18, 0.9);
     }
 
     .hero-main {
-      padding: 42px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-main::after {
-      content: "";
-      position: absolute;
-      inset: auto -100px -100px auto;
-      width: 240px;
-      height: 240px;
-      background: radial-gradient(circle, rgba(94, 240, 215, 0.22), transparent 65%);
-      filter: blur(10px);
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 18px;
-    }
-
-    .dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 999px;
-      background: var(--accent-2);
-      box-shadow: 0 0 18px var(--accent-2);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.5rem, 5vw, 4.8rem);
-      line-height: 0.98;
-      letter-spacing: -0.04em;
-    }
-
-    .gradient-text {
-      background: linear-gradient(135deg, #ffffff, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero-copy {
-      margin: 18px 0 0;
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.7;
-      max-width: 62ch;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 28px;
-    }
-
-    .btn {
-      padding: 14px 20px;
-      border-radius: 16px;
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text);
-      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.22);
-    }
-
-    .btn.primary {
-      background: linear-gradient(135deg, rgba(112, 165, 255, 0.25), rgba(94, 240, 215, 0.18));
-      border-color: rgba(112, 165, 255, 0.28);
+      padding: clamp(32px, 5vw, 64px);
     }
 
     .hero-side {
-      padding: 22px;
+      padding: 24px;
       display: grid;
+      align-content: start;
       gap: 16px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 24px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    h1,
+    h2 {
+      font-family: "Source Serif 4", Georgia, serif;
+      font-weight: 600;
+    }
+
+    h1 {
+      max-width: 13ch;
+      margin: 0;
+      font-size: clamp(3rem, 7vw, 6.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+    }
+
+    .gradient-text {
+      color: var(--accent);
+    }
+
+    .hero-copy {
+      max-width: 58ch;
+      margin: 28px 0 0;
+      color: var(--cream-soft);
+      font-size: clamp(16px, 2vw, 19px);
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      margin-top: 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 11px 16px;
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      color: var(--cream);
+      background: transparent;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--surface-2);
+    }
+
+    .btn.primary {
+      border-color: var(--accent);
+      color: var(--bg);
+      background: var(--accent);
+    }
+
+    .btn.primary:hover {
+      color: var(--bg);
+      background: var(--cream);
+      border-color: var(--cream);
     }
 
     .stat-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
     }
 
-    .stat-card,
-    .mini-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 18px;
-      transition: transform 0.22s ease, background 0.22s ease;
-    }
-
-    .stat-card:hover,
-    .mini-card:hover,
-    .skill-card:hover,
-    .video-card:hover,
-    .game-card:hover,
-    .contact-card:hover {
-      transform: translateY(-4px);
-      background: var(--surface-2);
+    .stat-card {
+      min-height: 132px;
+      padding: 20px;
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-soft);
     }
 
     .stat-label {
+      margin-bottom: 22px;
       color: var(--muted);
-      font-size: 13px;
-      margin-bottom: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
     }
 
     .stat-value {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
-      font-weight: 800;
+      color: var(--cream);
+      font-family: "Source Serif 4", Georgia, serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 600;
       letter-spacing: -0.04em;
     }
 
     .hero-list {
       display: grid;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .hero-list .mini-card {
+    .mini-card {
+      padding: 18px;
       display: flex;
-      justify-content: space-between;
-      gap: 16px;
       align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-soft);
     }
 
     .mini-card strong {
       display: block;
-      margin-bottom: 4px;
+      margin-bottom: 6px;
     }
 
     .mini-card span {
       color: var(--muted);
       font-size: 14px;
+      line-height: 1.5;
     }
 
     .mini-pill {
-      padding: 10px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.07);
-      color: var(--accent-2);
-      white-space: nowrap;
-      font-size: 13px;
+      flex: 0 0 auto;
+      color: var(--accent);
+      font-size: 12px;
       font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     section {
-      padding: 34px 0 84px;
-      scroll-margin-top: 90px;
+      padding: 88px 0;
+      border-top: 1px solid var(--border);
+      scroll-margin-top: 72px;
     }
 
     .section-head {
+      margin-bottom: 30px;
       display: flex;
-      justify-content: space-between;
-      gap: 18px;
       align-items: end;
-      margin-bottom: 24px;
+      justify-content: space-between;
+      gap: 24px;
       flex-wrap: wrap;
     }
 
     .section-head h2 {
       margin: 0;
-      font-size: clamp(1.9rem, 4vw, 3rem);
-      letter-spacing: -0.04em;
+      font-size: clamp(2.3rem, 5vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.045em;
     }
 
     .section-head p {
-      margin: 10px 0 0;
+      max-width: 62ch;
+      margin: 12px 0 0;
       color: var(--muted);
-      max-width: 70ch;
       line-height: 1.7;
     }
 
     .toolbar {
       display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
       align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .chip,
     .filter-btn {
-      padding: 10px 14px;
-      border-radius: 999px;
+      min-height: 38px;
+      padding: 8px 12px;
       border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.05);
+      border-radius: 4px;
       color: var(--muted);
+      background: transparent;
       cursor: pointer;
-      transition: 0.2s ease;
-      font: inherit;
+      transition: color 0.18s ease, border-color 0.18s ease, background 0.18s ease;
     }
 
     .filter-btn.active,
     .filter-btn:hover,
     .chip:hover {
-      color: var(--text);
-      background: rgba(255, 255, 255, 0.1);
+      color: var(--bg);
+      border-color: var(--accent);
+      background: var(--accent);
     }
 
     .search {
-      min-width: min(260px, 100%);
+      min-width: min(240px, 100%);
+      min-height: 40px;
+      padding: 8px 12px;
       display: flex;
       align-items: center;
-      gap: 10px;
-      padding: 12px 14px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.06);
+      gap: 8px;
       border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--muted);
+      background: var(--bg-soft);
+    }
+
+    .search span {
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .search input {
       width: 100%;
+      min-width: 0;
+      border: 0;
+      outline: 0;
+      color: var(--cream);
       background: transparent;
-      border: none;
-      outline: none;
-      color: var(--text);
-      font: inherit;
+    }
+
+    .search input::placeholder {
+      color: #746d60;
     }
 
     .grid {
       display: grid;
-      gap: 18px;
+      gap: 16px;
     }
 
     .skills-grid {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
+    .videos-grid,
+    .games-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .skill-card,
     .video-card,
     .game-card,
     .contact-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 22px;
-      box-shadow: var(--shadow);
-      transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease;
       position: relative;
       overflow: hidden;
-      backdrop-filter: blur(14px);
+      padding: 24px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(25, 23, 18, 0.92);
+      transition: border-color 0.18s ease, background 0.18s ease;
     }
 
-    .skill-card::before,
-    .video-card::before,
-    .game-card::before,
-    .contact-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, rgba(112, 165, 255, 0.12), transparent 40%, rgba(94, 240, 215, 0.08));
-      opacity: 0;
-      transition: opacity 0.22s ease;
-      pointer-events: none;
-    }
-
-    .skill-card:hover::before,
-    .video-card:hover::before,
-    .game-card:hover::before,
-    .contact-card:hover::before {
-      opacity: 1;
+    .skill-card:hover,
+    .video-card:hover,
+    .game-card:hover,
+    .contact-card:hover {
+      border-color: var(--border-light);
+      background: var(--surface-2);
     }
 
     .skill-top,
     .game-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 14px;
-      align-items: start;
-      margin-bottom: 14px;
       position: relative;
       z-index: 1;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
     }
 
     .skill-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
+      width: 42px;
+      height: 42px;
       display: grid;
       place-items: center;
-      font-size: 22px;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      flex-shrink: 0;
+      border: 1px solid var(--border-light);
+      border-radius: 50%;
+      color: var(--accent);
+      background: var(--bg-soft);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
     }
 
     .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
+      padding: 7px 9px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
       color: var(--muted);
-      font-size: 13px;
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       white-space: nowrap;
     }
 
@@ -492,21 +502,23 @@
     .video-card h3,
     .game-card h3,
     .contact-card h3 {
-      margin: 0 0 10px;
-      font-size: 1.15rem;
       position: relative;
       z-index: 1;
+      margin: 0 0 10px;
+      color: var(--cream);
+      font-size: 1.08rem;
+      line-height: 1.4;
     }
 
     .skill-card p,
     .video-card p,
     .game-card p,
     .contact-card p {
+      position: relative;
+      z-index: 1;
       margin: 0;
       color: var(--muted);
       line-height: 1.7;
-      position: relative;
-      z-index: 1;
     }
 
     .game-description {
@@ -514,154 +526,163 @@
     }
 
     .pill-row {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
-      margin-top: 16px;
-      position: relative;
-      z-index: 1;
     }
 
     .pill {
-      padding: 8px 10px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      color: #d5def5;
-      font-size: 13px;
-    }
-
-    .videos-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      padding: 6px 8px;
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      color: var(--cream-soft);
+      background: var(--bg-soft);
+      font-size: 12px;
     }
 
     .video-frame {
-      margin-top: 16px;
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      aspect-ratio: 16 / 9;
-      background: rgba(255, 255, 255, 0.03);
       position: relative;
       z-index: 1;
+      aspect-ratio: 16 / 9;
+      margin-top: 18px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: #090806;
     }
 
     .video-frame iframe {
       width: 100%;
       height: 100%;
       border: 0;
-    }
-
-    .games-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      filter: saturate(0.82) contrast(1.04);
     }
 
     .game-banner {
-      height: 180px;
-      border-radius: 18px;
-      overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      margin-bottom: 16px;
-      background: linear-gradient(135deg, rgba(112, 165, 255, 0.2), rgba(183, 140, 255, 0.18), rgba(94, 240, 215, 0.12));
       position: relative;
       z-index: 1;
+      height: 200px;
+      margin-bottom: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-soft);
     }
 
     .game-banner-image {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      display: block;
+      filter: saturate(0.72) contrast(1.04);
+      transition: filter 0.2s ease, transform 0.25s ease;
+    }
+
+    .game-card:hover .game-banner-image {
+      filter: saturate(0.9) contrast(1.02);
+      transform: scale(1.01);
     }
 
     .game-banner-placeholder {
       width: 100%;
       height: 100%;
+      padding: 16px;
       display: grid;
       place-items: center;
-      color: rgba(255, 255, 255, 0.85);
-      font-size: 14px;
+      color: var(--muted);
       text-align: center;
-      padding: 16px;
     }
 
     .game-meta {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      margin-top: 18px;
       position: relative;
       z-index: 1;
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-top: 1px solid var(--border);
+      border-left: 1px solid var(--border);
     }
 
     .meta-box {
       padding: 14px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-right: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-soft);
     }
 
     .meta-label {
-      color: var(--muted);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
       margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
     }
 
     .meta-value {
-      font-weight: 700;
+      color: var(--cream-soft);
+      font-weight: 600;
       word-break: break-word;
     }
 
     .game-actions {
+      position: relative;
+      z-index: 1;
+      margin-top: 18px;
       display: flex;
       gap: 10px;
       flex-wrap: wrap;
-      margin-top: 18px;
-      position: relative;
-      z-index: 1;
     }
 
     .contact-wrap {
       display: grid;
       grid-template-columns: 1.1fr 0.9fr;
-      gap: 18px;
+      gap: 16px;
     }
 
     .contact-list {
-      display: grid;
-      gap: 12px;
-      margin-top: 16px;
       position: relative;
       z-index: 1;
+      margin-top: 20px;
+      display: grid;
+      gap: 10px;
     }
 
     .contact-line {
+      padding: 15px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       gap: 12px;
-      padding: 14px 16px;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg-soft);
+    }
+
+    .contact-line strong {
+      display: block;
+      margin-bottom: 4px;
     }
 
     .contact-line span {
       color: var(--muted);
+      font-size: 13px;
     }
 
     .footer {
-      padding: 20px 0 44px;
+      padding: 28px 0 44px;
+      border-top: 1px solid var(--border);
       color: var(--muted);
+      font-size: 13px;
       text-align: center;
     }
 
     .reveal {
       opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transform: translateY(14px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .reveal.visible {
@@ -673,6 +694,22 @@
       display: none !important;
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      #stringBackground {
+        display: none;
+      }
+    }
+
     @media (max-width: 1024px) {
       .hero-grid,
       .contact-wrap,
@@ -680,6 +717,10 @@
       .videos-grid,
       .games-grid {
         grid-template-columns: 1fr;
+      }
+
+      h1 {
+        max-width: 16ch;
       }
     }
 
@@ -691,13 +732,29 @@
         flex-direction: column;
       }
 
+      .nav {
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+      }
+
+      .nav a {
+        flex: 0 0 auto;
+        padding: 8px 9px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 42px 0 64px;
+      }
+
       .hero-main,
       .hero-side,
       .skill-card,
       .video-card,
       .game-card,
       .contact-card {
-        padding: 18px;
+        padding: 20px;
       }
 
       .stat-grid,
@@ -705,13 +762,24 @@
         grid-template-columns: 1fr;
       }
 
-      .hero {
-        min-height: auto;
+      .section-head {
+        align-items: flex-start;
       }
 
-      .nav a {
-        padding: 9px 11px;
-        font-size: 14px;
+      .toolbar {
+        justify-content: flex-start;
+      }
+
+      .search {
+        width: 100%;
+      }
+
+      section {
+        padding: 64px 0;
+      }
+
+      .game-banner {
+        height: 170px;
       }
     }
   </style>
@@ -724,7 +792,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <a href="#home" class="brand">
-        <div class="brand-badge">R</div>
+        <div class="brand-badge">C</div>
         <div>
           <div>Chop's Portfolio</div>
         </div>
@@ -735,7 +803,6 @@
         <a href="#skills">Skills</a>
         <a href="#videos">Videos</a>
         <a href="#games">Games</a>
-
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -745,20 +812,18 @@
     <section class="hero" id="home">
       <div class="hero-grid">
         <div class="panel hero-main reveal">
-          <div class="eyebrow"><span class="dot"></span> Roblox developer</div>
+          <div class="eyebrow"><span class="dot"></span> Roblox scripter · available for work</div>
 
           <h1>
-            Hello! <span class="gradient-text">I am Chop</span> and this is my Portfolio.
+            I’m Chop. <span class="gradient-text">I build Roblox systems</span> that work.
           </h1>
 
           <p class="hero-copy">
-            Hey there! I’m a passionate Roblox developer with over 2 years of
-            experience in scripting and game development.
+            I’ve spent over two years building gameplay, UI, data, economy, and progression systems for Roblox projects.
           </p>
 
           <div class="hero-actions">
             <a class="btn primary" href="#games">See My Work</a>
-    
             <a class="btn" href="#contact">Contact Me</a>
           </div>
         </div>
@@ -785,7 +850,6 @@
               <div class="mini-pill">Luau</div>
             </div>
 
-          
           </div>
         </div>
       </div>
@@ -794,9 +858,9 @@
     <section id="skills">
       <div class="section-head reveal">
         <div>
-          <h2>What I can do in Roblox development</h2>
+          <h2>What I work on</h2>
           <p>
-            These are the Roblox development areas I can work on.
+            The main areas I handle when scripting Roblox projects.
           </p>
         </div>
 
@@ -808,7 +872,7 @@
           <button class="filter-btn" data-filter="economy">Economy</button>
 
           <label class="search">
-            <span>🔎</span>
+            <span>Search</span>
             <input id="skillSearch" type="text" placeholder="Search skills..." />
           </label>
         </div>
@@ -820,9 +884,9 @@
     <section id="videos">
       <div class="section-head reveal">
         <div>
-          <h2>Videos</h2>
+          <h2>Selected videos</h2>
           <p>
-            Videos of work I have done.
+            Short demonstrations of systems and commissions I have worked on.
           </p>
         </div>
       </div>
@@ -833,9 +897,9 @@
     <section id="games">
       <div class="section-head reveal">
         <div>
-          <h2>Games I have worked on</h2>
+          <h2>Selected game work</h2>
           <p>
-            These are games I have worked on.
+            Projects where I worked as a scripter or lead scripter.
           </p>
         </div>
       </div>
@@ -856,9 +920,9 @@
 
       <div class="contact-wrap">
         <div class="contact-card reveal">
-          <h3>Let’s build something strong</h3>
+          <h3>Work with me</h3>
           <p>
-            Message me here on Discord. If I do not respond, I might be gone, but I will be back.
+            Discord is the best way to reach me. I may not reply immediately, but I will get back to you.
           </p>
 
           <div class="contact-list">
@@ -890,7 +954,7 @@
     </section>
 
     <div class="footer reveal">
-      All the way down, thanks for looking at my portfolio. Hope you liked it!
+      Thanks for taking the time to look through my work.
     </div>
   </main>
 
@@ -941,7 +1005,7 @@
         points = [];
 
         const smallScreen = width < 720;
-        const spacing = smallScreen ? 70 : 56;
+        const spacing = smallScreen ? 86 : 72;
         const cols = Math.ceil(width / spacing) + 3;
         const rows = Math.ceil(height / spacing) + 3;
 
@@ -967,8 +1031,8 @@
       }
 
       function updatePoints(deltaTime, time) {
-        const repelStrength = 10;
-        const springStrength = 0.055;
+        const repelStrength = 5;
+        const springStrength = 0.045;
         const friction = 0.9;
         const idlePull = mouse.active ? 1 : 0.35;
 
@@ -1005,7 +1069,7 @@
       function drawLines(time) {
         ctx.clearRect(0, 0, width, height);
 
-        const maxDistance = width < 720 ? 92 : 105;
+        const maxDistance = width < 720 ? 105 : 118;
 
         for (let i = 0; i < points.length; i++) {
           const a = points[i];
@@ -1023,10 +1087,10 @@
             const mouseDx = (a.x + b.x) * 0.5 - mouse.x;
             const mouseDy = (a.y + b.y) * 0.5 - mouse.y;
             const mouseDistance = Math.sqrt(mouseDx * mouseDx + mouseDy * mouseDy);
-            const mouseBoost = mouse.active && mouseDistance < mouse.radius ? 0.2 : 0;
+            const mouseBoost = mouse.active && mouseDistance < mouse.radius ? 0.05 : 0;
 
-            const pulse = 0.04 + Math.sin(time * 2 + i * 0.2) * 0.025;
-            const alpha = (1 - distance / maxDistance) * (0.25 + mouseBoost + pulse);
+            const pulse = 0.01 + Math.sin(time * 1.2 + i * 0.2) * 0.008;
+            const alpha = (1 - distance / maxDistance) * (0.10 + mouseBoost + pulse);
 
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -1035,26 +1099,26 @@
             const midY = (a.y + b.y) * 0.5 + Math.cos(time * 1.6 + j) * 2.2;
 
             ctx.quadraticCurveTo(midX, midY, b.x, b.y);
-            ctx.strokeStyle = `rgba(112, 165, 255, ${alpha})`;
+            ctx.strokeStyle = `rgba(214, 189, 139, ${alpha})`;
             ctx.lineWidth = 1;
             ctx.stroke();
           }
         }
 
         for (const point of points) {
-          const glow = 0.22 + Math.sin(time * 2.2 + point.waveX) * 0.08;
+          const glow = 0.10 + Math.sin(time * 1.4 + point.waveX) * 0.025;
 
           ctx.beginPath();
           ctx.arc(point.x, point.y, 1.25, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(94, 240, 215, ${glow})`;
+          ctx.fillStyle = `rgba(241, 232, 214, ${glow})`;
           ctx.fill();
         }
 
         if (mouse.active) {
           const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, mouse.radius);
-          gradient.addColorStop(0, "rgba(94, 240, 215, 0.14)");
-          gradient.addColorStop(0.45, "rgba(112, 165, 255, 0.06)");
-          gradient.addColorStop(1, "rgba(94, 240, 215, 0)");
+          gradient.addColorStop(0, "rgba(214, 189, 139, 0.045)");
+          gradient.addColorStop(0.45, "rgba(241, 232, 214, 0.018)");
+          gradient.addColorStop(1, "rgba(214, 189, 139, 0)");
 
           ctx.beginPath();
           ctx.arc(mouse.x, mouse.y, mouse.radius, 0, Math.PI * 2);
@@ -1114,7 +1178,7 @@
         {
           title: "DataStores & player data",
           category: "backend",
-          icon: "🗄️",
+          icon: "DS",
           level: "Core",
           description: "Save systems, profile loading, session safety, inventory data, progression, currency, and reliable persistence.",
           tags: ["DataStoreService", "Profiles", "Currencies"]
@@ -1122,7 +1186,7 @@
         {
           title: "Gameplay systems",
           category: "gameplay",
-          icon: "🎮",
+          icon: "GP",
           level: "Advanced",
           description: "Round loops, progression, combat logic, tool systems, upgrades, abilities, and more.",
           tags: ["Combat", "Rounds", "Abilities"]
@@ -1130,7 +1194,7 @@
         {
           title: "UI logic and polish",
           category: "ui",
-          icon: "✨",
+          icon: "UI",
           level: "Advanced",
           description: "Responsive interfaces, interactive menus, reward flows, inventories, tweening, and state-driven UI systems.",
           tags: ["UI", "Tweening", "UX"]
@@ -1138,7 +1202,7 @@
         {
           title: "Trading and economy",
           category: "economy",
-          icon: "💸",
+          icon: "EC",
           level: "Strong",
           description: "Trading systems, item flows, premium products, currencies, reward loops, monetization hooks, and balancing.",
           tags: ["Trading", "Shops", "Products"]
@@ -1146,7 +1210,7 @@
         {
           title: "AI and NPC behavior",
           category: "gameplay",
-          icon: "🤖",
+          icon: "NPC",
           level: "Strong",
           description: "Pathfinding, chasing, combat logic, aggro systems, state machines, target switching, and reactive NPC behavior.",
           tags: ["Pathfinding", "Monsters", "NPC AI"]
@@ -1154,7 +1218,7 @@
         {
           title: "Modular architecture",
           category: "backend",
-          icon: "🧩",
+          icon: "MOD",
           level: "Core",
           description: "Service-based structure, reusable modules, and clean project organization.",
           tags: ["Modules", "Services", "Scalable"]
@@ -1258,27 +1322,25 @@ Teleport to your last checkpoint at any time!`,
           gameUrl: "https://www.roblox.com/games/120740094197563/1-Speed-Keyboard-Escape#!/about",
           bannerImage: "assets/games/speed-keyboard-escape.png"
         }
-      ],
-
-      releasedGames: [
-        {
-          title: "Maxi Scooter For Brainrots",
-          role: "Released Game",
-          description: "A Roblox game released by me. Ride a maxi scooter, collect Brainrots, upgrade your progress, and build your income.",
-          genre: "Obby / Simulator",
-          visits: "Released",
-          gameUrl: "https://www.roblox.com/games/105205470677994/Maxi-Scooter-For-Brainrots",
-          bannerImage: "https://tr.rbxcdn.com/180DAY-3909b2ad217c72743d4c9d3f7c239abe/768/432/Image/Webp/noFilter"
-        }
       ]
     };
 
     const skillsGrid = document.getElementById("skillsGrid");
     const videosGrid = document.getElementById("videosGrid");
     const gamesGrid = document.getElementById("gamesGrid");
-
     const searchInput = document.getElementById("skillSearch");
+    const filterButtons = [...document.querySelectorAll(".filter-btn")];
 
+    let currentFilter = "all";
+
+    function escapeHTML(value) {
+      return String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
 
     function createSkillCard(skill) {
       const article = document.createElement("article");
@@ -1430,7 +1492,6 @@ Teleport to your last checkpoint at any time!`,
     }
 
 
-
     function animateCounts() {
       const counters = document.querySelectorAll("[data-count]");
 
@@ -1521,7 +1582,6 @@ Teleport to your last checkpoint at any time!`,
     renderSkills();
     renderVideos();
     renderGames();
-  
     animateCounts();
     observeReveals();
     setActiveNav();
